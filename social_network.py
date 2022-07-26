@@ -23,7 +23,7 @@ def manageAccountMenu():
 
 #Create instance of main social network object
 ai_social_network = SocialNetwork()
-
+user = None
 #The line below is a python keyword to specify which 
 if __name__ == "__main__":
     print("########################################################")
@@ -38,13 +38,31 @@ if __name__ == "__main__":
             ai_social_network.create_account()
 
         elif choice == "2":
+            user = ai_social_network.sign_in()#sign into the account each time
             inner_menu_choice = social_network_ui.manageAccountMenu()
             #Handle inner menu here
             while True:
-                if inner_menu_choice == "5":
+                if inner_menu_choice == "7":
                     break
-                else:
-                    inner_menu_choice = social_network_ui.manageAccountMenu()
+                elif inner_menu_choice == "1":
+                   user.edit(ai_social_network)
+                elif inner_menu_choice == "2":
+                    friend = input("Enter your friend's ID: ")
+                    user.add_friend(friend, ai_social_network)
+                elif inner_menu_choice == "3":
+                    friend = input("Enter the ID that you'd like to block: ")
+                    user.block_friend(friend, ai_social_network)
+                elif inner_menu_choice == "5":
+                    messages = input("Whose message would you like to see? (Enter their ID)")
+                    user.check_messages(messages, ai_social_network)
+                elif inner_menu_choice == "4":
+                    user.show_friends()
+                elif inner_menu_choice == "6":
+                    friend = input("Who do you want to send it to? (Enter their ID)")
+                    message = input("What do you want to say:")
+                    user.send_message(friend, message, ai_social_network)
+
+                inner_menu_choice = social_network_ui.manageAccountMenu()
 
         elif choice == "3":
             print("Thank you for visiting. Goodbye3")
